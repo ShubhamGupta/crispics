@@ -21,3 +21,4 @@ function add_fields(link, association, content) {
  	$('#photo_upload').append(content.replace(regexp, new_id));
 
 }
+$('.present_image a').live('click', function(){$(this).parent('div').addClass('remove_me');});

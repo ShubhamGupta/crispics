@@ -1,4 +1,5 @@
 Crispics::Application.routes.draw do
+	 
 	resources :albums do
 		resources :photos
 	end
@@ -7,9 +8,9 @@ Crispics::Application.routes.draw do
   controller :sessions do
 		get 'login' => :new
 		post 'login' => :create
-		get 'logout' => :destroy
+		delete 'logout' => :destroy
 	end
-
+	root :to => 'albums#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -35,6 +35,7 @@ class AlbumsController < ApplicationController
   	if @album.belongs_to_current_user?(current_user) && @album.update_attributes(params[:album])
   		redirect_to albums_path, notice: "Album updated successfully."
   	else
+  		flash[:notice] = "Album not updated"
   		render 'edit'
   	end
   end

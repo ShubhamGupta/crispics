@@ -7,7 +7,7 @@
   	<% @album.photos.each do|photo| %>
 				<div class = "present_image">
 					<%= image_tag photo.pic(:thumb) %>
-					<%= link_to "Remove", album_photo_path(@album,photo), method: :delete, remote: true %>
+					<%= link_to "Remove From Album", album_photo_path(@album,photo), method: :delete, remote: true %>
 				<br><br>
 				</div>
 		<% end %>
