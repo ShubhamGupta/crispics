@@ -1,0 +1,10 @@
+<h1><%= @album.title %> &nbsp;&gt;&gt;&nbsp; Photos</h1>
+<% @album.photos.each do |photo| %>
+	<%= image_tag photo.pic(:thumb) %>
+	<%= link_to "View", album_photo_path(@album,photo)%>
+	<%= link_to "remove", album_photo_path(@album,photo),:method =>:delete%>
+	<br><br>
+<% end %>
+<hr/>
+<%= link_to "Add new photo", new_album_photo_path(@album) %>|
+<%= link_to "Back To Albums", albums_path %>

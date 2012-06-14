@@ -1,0 +1,21 @@
+<div id = "login_box">
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+<h2>Please Log in</h2>
+<hr/>
+<%= form_tag do %>
+<div>
+<%= label_tag :user_name, 'User Name:' %>
+<%= text_field_tag :user_name, params[:user_name] %>
+</div>
+<div>
+<%= label_tag :password, 'Password:' %>
+<%= password_field_tag :password, params[:password] %>
+</div>
+<div id = 'submit'>
+<%= submit_tag "Login"%>Or
+<%= link_to "Register", new_users_path %>
+</div>
+<% end %>
+</div>

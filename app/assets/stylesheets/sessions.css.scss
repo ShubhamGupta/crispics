@@ -1,0 +1,35 @@
+// Place all the styles related to the sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#login_box{
+	float: right;
+	background-color: #057ED0;
+	border-radius: 10px;
+	margin: 10px;
+	padding: 30px;
+	padding-top: 10px;
+}
+#login_box {
+color: #999;
+font-size: 14px;
+font-weight: bold;
+opacity: 0.8;
+}
+#login_box div label{
+width: 70px;
+}
+#login_box div{
+padding-top: 10px
+}
+#submit{
+float: left;
+padding-top: 20px;
+}
+
+#submit a{
+text-decoration: none;
+color: #FFFFFF;
+background-color: #057ED0;
+font-weight: normal;
+}
+
