@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120613074540) do
+ActiveRecord::Schema.define(:version => 20120616095647) do
 
   create_table "albums", :force => true do |t|
     t.string   "title"
@@ -30,21 +30,28 @@ ActiveRecord::Schema.define(:version => 20120613074540) do
     t.datetime "pic_updated_at"
   end
 
+  create_table "photos_tags", :id => false, :force => true do |t|
+    t.integer "photo_id"
+    t.integer "tag_id"
+  end
+
+  add_index "photos_tags", ["photo_id", "tag_id"], :name => "index_photos_tags_on_photo_id_and_tag_id"
+
   create_table "tags", :force => true do |t|
-    t.integer  "photos_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "name"
   end
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email_id"
-    t.string   "password"
     t.string   "password_digest"
     t.string   "user_name"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.string   "reset_perishable_token"
   end
 
 end

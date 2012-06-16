@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
+  
   def show
     @user = User.find(params[:id])
 
@@ -9,7 +10,21 @@ class UsersController < ApplicationController
       format.json { render json: @user }
     end
   end
-
+	def reset_password
+		@user = User.find_by_reset_perishable_token(params[:secret_token])
+		redirect_to login_path, notice: "Please login to access!" if !@user
+	end
+	
+	def update_password
+		@user = User.find(params[:format])
+		@user.reset_perishable_token = nil
+		if @user.update_attributes(params[:user])
+			session[:user_id] = @user.id
+			redirect_to albums_path
+		else
+			render :reset_password
+		end
+	end
   # GET /users/new
   # GET /users/new.json
   def new
@@ -26,6 +41,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+    	session[:user_id] = @user.id
       redirect_to albums_path
     else
       render action: "new"
@@ -35,8 +51,8 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.find(params[:id])
-
+    @user = User.find(params[:format])
+		
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }

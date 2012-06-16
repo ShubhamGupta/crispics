@@ -4,6 +4,12 @@
 		<%= image_tag photo.pic(:thumb) %>
 		<%= link_to "View", album_photo_path(@album,photo)%>
 		<%= link_to "Remove From Album", album_photo_path(@album,photo),:method =>:delete, remote: true%>
+		<% if photo.tags.length > 0 %>
+		Tags : 
+		<% photo.tags.each do |tag|%>
+			<%= "#{tag.name}  "%>
+		<% end %>
+		<% end %>
 		<br><br>
 	</div>
 <% end %>

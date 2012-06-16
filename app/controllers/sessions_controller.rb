@@ -17,4 +17,17 @@ class SessionsController < ApplicationController
 	  session[:user_id] = nil
 	  redirect_to '/login'
 	end
+	
+	def forgot_password_lookup_email
+		user = User.find_by_email_id(params[:email_id])
+		#render text: user.first_name
+    if user
+      user.send_forgot_password!
+      flash[:notice] = "A link to reset your password has been mailed to you."
+      redirect_to login_path
+    else
+    	flash[:notice] = "Email Id you provided doesn't exists."
+    	redirect_to reset_password_path
+    end
+	end
 end

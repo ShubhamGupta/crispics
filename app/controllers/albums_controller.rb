@@ -13,12 +13,23 @@ class AlbumsController < ApplicationController
   end
 
   def create
-  	@album = Album.create params[:album]
+  	if !params[:album][:photos_attributes].nil?
+			params[:album][:photos_attributes].each do|k,v|
+				tags = v[:tags].split(',')
+				tags.inject([]){|result , h| result << h.strip!}# if (h.strip.empty?)}
+				tags.reject!{|c| c.strip.empty?} 
+				tags.uniq!
+				arr = []
+				tags.each do |tag| arr << Tag.find_or_create_by_name(:name => tag) end
+				v[:tags] = arr
+			end
+		end
+		@album = Album.new params[:album]
   	@album.user_id = current_user.id
-		if @album.save
-  		redirect_to albums_path(@album), notice: "Album created"
+  	if @album.save
+  		redirect_to albums_path, notice: "Album created"
   	else
-  		flash[:notice] = "Changes not saved."
+  		@album.photos = []
   		render 'new'
   	end
   end
@@ -32,6 +43,17 @@ class AlbumsController < ApplicationController
   end
 
   def update
+  	if !params[:album][:photos_attributes].nil?
+			params[:album][:photos_attributes].each do|k,v|
+				tags = v[:tags].split(',')
+				tags.inject([]){|result , h| result << h.strip!}# if (h.strip.empty?)}
+				tags.reject!{|c| c.strip.empty?} 
+				tags.uniq!
+				arr = []
+				tags.each do |tag| arr << Tag.find_or_create_by_name(:name => tag) end
+				v[:tags] = arr
+			end
+		end
   	if @album.belongs_to_current_user?(current_user) && @album.update_attributes(params[:album])
   		redirect_to albums_path, notice: "Album updated successfully."
   	else
@@ -47,7 +69,7 @@ class AlbumsController < ApplicationController
   end
 
   def index
-  	@albums = current_user.albums
+  	@albums = current_user.albums 
   end
   
   private

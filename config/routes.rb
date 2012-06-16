@@ -4,11 +4,16 @@ Crispics::Application.routes.draw do
 		resources :photos
 	end
 
-  resource :users
+  resource :users do
+  	get 'reset_password' => :reset_password
+  	put 'update_password' => :update_password
+  end
   controller :sessions do
 		get 'login' => :new
 		post 'login' => :create
 		delete 'logout' => :destroy
+		get "reset_password" => :reset_password
+		post "send_mail" => :forgot_password_lookup_email
 	end
 	root :to => 'albums#index'
   # The priority is based upon order of creation:
@@ -67,4 +72,5 @@ Crispics::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+    match '*a', :to => 'errors#index'
 end

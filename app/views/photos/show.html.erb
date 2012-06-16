@@ -1,3 +1,11 @@
 <%= image_tag @photo.pic %>
+<br>
+<% if @photo.tags.length > 0 %>
+	Tags : 
+	<% @photo.tags.each do |tag|%>
+		<%= "#{tag.name}  "%>
+	<% end %>
+<% end %>
+		<br><br>
 <hr>
 <%= link_to "Back to #{@photo.album.title} album", album_path(@photo.album) %>

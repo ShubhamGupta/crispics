@@ -13,6 +13,7 @@
 <%= label_tag :password, 'Password:' %>
 <%= password_field_tag :password, params[:password] %>
 </div>
+<%= link_to "Forgot password", reset_password_path %>
 <div id = 'submit'>
 <%= submit_tag "Login"%>Or
 <%= link_to "Register", new_users_path %>

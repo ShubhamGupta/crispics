@@ -12,12 +12,12 @@
  *= require_tree .
  */
  #header{
-  border-bottom: solid 2px red;
+  border-bottom: solid 2px grey;
  }
  #header h1{
  text-align: center;
  font-size: 32px;
- color: #48CC44;
+ color: #3BB955;
   }
   #header a{
   font-size: 14px;
@@ -27,5 +27,5 @@
   right: 20px;
   }
  body{
- background-color: #3BB9FF;
+ background-color: #CCCCCC;
  }
