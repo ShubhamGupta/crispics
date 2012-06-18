@@ -1,7 +1,9 @@
 class AlbumsController < ApplicationController
+
 	before_filter :login_required
 	before_filter :get_album_from_params, :only => ['show', 'destroy', 'edit', 'update']
 	rescue_from ActiveRecord::RecordNotFound, :with => :redirect_if_not_found
+
   def new
   	@album = Album.new
   end
@@ -73,10 +75,13 @@ class AlbumsController < ApplicationController
   end
   
   private
+
   def get_album_from_params
   	@album = Album.find params[:id]
   end
+
   def redirect_if_not_found
   	redirect_to albums_path, notice: "Album not found"
   end
+
 end
