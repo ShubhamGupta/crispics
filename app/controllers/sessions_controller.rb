@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-	#before_filter :current_user, :only => ['destroy']
 
   def create
 		user_name = params[:user_name]
@@ -13,15 +12,15 @@ class SessionsController < ApplicationController
 			render 'new'
 		end
 	end
+	
 	def destroy
 	  session[:user_id] = nil
-	  redirect_to '/login'
+	  redirect_to login_path
 	end
 	
 	def forgot_password_lookup_email
 		user = User.find_by_email_id(params[:email_id])
-		#render text: user.first_name
-    if user
+		if user
       user.send_forgot_password!
       flash[:notice] = "A link to reset your password has been mailed to you."
       redirect_to login_path
@@ -30,4 +29,5 @@ class SessionsController < ApplicationController
     	redirect_to reset_password_path
     end
 	end
+	
 end

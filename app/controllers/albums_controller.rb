@@ -13,17 +13,7 @@ class AlbumsController < ApplicationController
   end
 
   def create
-  	if !params[:album][:photos_attributes].nil?
-			params[:album][:photos_attributes].each do|k,v|
-				tags = v[:tags].split(',')
-				tags.inject([]){|result , h| result << h.strip!}# if (h.strip.empty?)}
-				tags.reject!{|c| c.strip.empty?} 
-				tags.uniq!
-				arr = []
-				tags.each do |tag| arr << Tag.find_or_create_by_name(:name => tag) end
-				v[:tags] = arr
-			end
-		end
+  	process_params if !params[:album][:photos_attributes].nil?
 		@album = Album.new params[:album]
   	@album.user_id = current_user.id
   	if @album.save
@@ -43,21 +33,11 @@ class AlbumsController < ApplicationController
   end
 
   def update
-  	if !params[:album][:photos_attributes].nil?
-			params[:album][:photos_attributes].each do|k,v|
-				tags = v[:tags].split(',')
-				tags.inject([]){|result , h| result << h.strip!}# if (h.strip.empty?)}
-				tags.reject!{|c| c.strip.empty?} 
-				tags.uniq!
-				arr = []
-				tags.each do |tag| arr << Tag.find_or_create_by_name(:name => tag) end
-				v[:tags] = arr
-			end
-		end
+  	process_params if !params[:album][:photos_attributes].nil?
   	if @album.belongs_to_current_user?(current_user) && @album.update_attributes(params[:album])
   		redirect_to albums_path, notice: "Album updated successfully."
   	else
-  		flash[:notice] = "Album not updated"
+			@album.photos = []
   		render 'edit'
   	end
   end
@@ -73,6 +53,18 @@ class AlbumsController < ApplicationController
   end
   
   private
+  
+  def process_params 
+  	params[:album][:photos_attributes].each do|k,v|
+			tags = v[:tags].split(',')
+			tags.inject([]){|result , h| result << h.strip!}# if (h.strip.empty?)}
+			tags.reject!{|c| c.strip.empty?} 
+			tags.uniq!
+			arr = []
+			tags.each do |tag| arr << Tag.find_or_create_by_name(:name => tag) end
+			v[:tags] = arr
+		end
+  end
   def get_album_from_params
   	@album = Album.find params[:id]
   end

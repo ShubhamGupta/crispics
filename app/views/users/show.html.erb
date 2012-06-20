@@ -1,5 +1,18 @@
 <p id="notice"><%= notice %></p>
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<h1>Your Profile</h1>
+<table>
+<tr>
+<th>First name</th>
+<th>Last name</th>
+<th>Email Id</th>
+<th>User Name</th>
+</tr>
+<tr>
+<td><%= @user.first_name %></td>
+<td><%= @user.last_name %></td>
+<td><%= @user.email_id %></td>
+<td><%= @user.user_name %></td>
+</tr>
+</table>
+<%= link_to 'Edit Profile', edit_users_path %>
+<%= link_to 'Back', albums_path %>

@@ -19,13 +19,13 @@
  font-size: 32px;
  color: #3BB955;
   }
-  #header a{
-  font-size: 14px;
-  color: grey;
-  position: absolute;
-  top: 30px;
-  right: 20px;
-  }
+/*  #header a{*/
+/*  font-size: 14px;*/
+/*  color: grey;*/
+/*  position: absolute;*/
+/*  top: 30px;*/
+/*  right: 20px;*/
+/*  }*/
  body{
  background-color: #CCCCCC;
  }

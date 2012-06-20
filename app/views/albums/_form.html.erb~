@@ -1,0 +1,25 @@
+<%= form_for @album, :html => {:multipart => true} do |f| %>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <% if !@album.photos.empty? %>
+  	<% @album.photos.each do|photo| %>
+				<div class = "present_image">
+					<%= image_tag photo.pic(:thumb) %>
+					<% photo.tags.each do |tag| %>
+					  <%= tag.name %>
+					<% end %> 
+					<br>
+					<%= link_to "Remove From Album", album_photo_path(@album,photo), method: :delete, remote: true %>
+				<br><br>
+				</div>
+		<% end %>
+  <% end %>
+  <div id ="photo_upload">
+	</div>
+	<%= add_image_link("Add an image",f,:photos) %>
+	<div class="actions">
+    <%= f.submit%>
+  </div>
+<% end %>
