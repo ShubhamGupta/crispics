@@ -39,7 +39,6 @@ class AlbumsController < ApplicationController
   	if @album.belongs_to_current_user?(current_user) && @album.update_attributes(params[:album])
   		redirect_to albums_path, notice: "Album updated successfully."
   	else
-			@album.photos = []
   		render 'edit'
   	end
   end
@@ -59,15 +58,19 @@ class AlbumsController < ApplicationController
   
   def process_params 
   	params[:album][:photos_attributes].each do|k,v|
-			tags = v[:tags].split(',')
-			tags.inject([]){|result , h| result << h.strip!}# if (h.strip.empty?)}
-			tags.reject!{|c| c.strip.empty?} 
-			tags.uniq!
-			arr = []
-			tags.each do |tag| arr << Tag.find_or_create_by_name(:name => tag) end
-			v[:tags] = arr
+  		if v.has_key?(:pic)
+				tags = v[:tags].split(',')
+				tags.inject([]){|result , h| result << h.strip! if (v[:pic])}
+				tags.reject!{|c| c.strip.empty?} 
+				tags.uniq!
+				arr = []
+				tags.each do |tag| arr << Tag.find_or_create_by_name(:name => tag) end
+				v[:tags] = arr
+			else
+				params[:album][:photos_attributes].delete(k)
+			end
 		end
-  end
+	end
 
   def get_album_from_params
   	@album = Album.find params[:id]

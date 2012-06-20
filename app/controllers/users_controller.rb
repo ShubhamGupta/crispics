@@ -32,8 +32,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-    	session[:user_id] = @user.id
-      redirect_to albums_path
+    	session[:user_id] = nil
+			redirect_to login_path, notice: 'You can now login with your new account.'	
     else
       render action: "new"
     end
@@ -49,7 +49,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-   current_user.destroy
-	 redirect_to login_path
+	  current_user.destroy
+	  session[:user_id] = nil
+	  redirect_to login_path
   end
 end

@@ -1,0 +1,12 @@
+<p><%= notice %></p>
+<h1>Add/Remove Tags </h1>
+<%= form_for [@album,@photo] do|f|%>
+<%= image_tag @photo.pic :medium %>
+<% tags = "" %>
+<% @photo.tags.each do|tag| %>
+	<% tags += tag.name + ', '%>
+<% end %>
+<br>
+<%= text_field_tag "tags", tags %>
+<%= f.submit %>
+<% end %>

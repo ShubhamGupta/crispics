@@ -10,4 +10,5 @@ class Album < ActiveRecord::Base
   def add_a_photo
   	self.photos.build
   end
+  
 end

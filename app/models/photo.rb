@@ -9,7 +9,7 @@ class Photo < ActiveRecord::Base
   has_attached_file :pic, :styles => { :medium => "300x300>", :thumb => "50x50>" },
   	:path => ":rails_root/public/system/:attachment/:id/:style/:filename", 
   :url => "/system/:attachment/:id/:style/:filename"
-	
+#validates :pic_file_name, presence: true
  	validates_format_of :pic_file_name, :with => %r{\.(jpeg|gif|jpg)$}i
 #  validates_attachment_size :picture, :less_than => 1.megabytes 
   def belongs_to_current_album?(album, curr_user)

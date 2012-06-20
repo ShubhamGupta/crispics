@@ -25,8 +25,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "A link to reset your password has been mailed to you."
       redirect_to login_path
     else
-    	flash[:notice] = "Email Id you provided doesn't exists."
-    	redirect_to reset_password_path
+    	redirect_to reset_password_path, notice: "Email Id you provided doesn't exists."
     end
 	end
 	
