@@ -4,7 +4,6 @@ rvm:
 script: 
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
-  - bundle exec rspec spec/
 before_script:
   - mysql -e 'create database crispics_test;'
 # uncomment this line if your project needs to run something other than `rake`:
