@@ -13,6 +13,5 @@
 # Ignore all logfiles and tempfiles.
 log/*.log
 tmp
-config/database.yml
 public/system
 .DS_Store
